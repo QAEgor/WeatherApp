@@ -6,7 +6,10 @@ from timezonefinder import TimezoneFinder
 from datetime import datetime
 import requests
 import pytz
-from api_key import api_key
+import os
+from dotenv import load_dotenv, find_dotenv
+
+load_dotenv(find_dotenv())
 
 root = Tk()
 root.title("Weather")
@@ -31,7 +34,7 @@ def getWeather():
         name.config(text="CURRENT WEATHER")
 
         # weather
-        api = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}"
+        api = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={os.getenv('TOKEN')}"
 
         json_data = requests.get(api).json()
         condition = json_data['weather'][0]['main']
